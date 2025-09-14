@@ -1,3 +1,4 @@
+import { createPodcastCard } from "../components/createPodcastCard.js";
 import { createModal } from "../components/createModal.js";
 
 /**
@@ -16,20 +17,7 @@ export const createGrid = () => {
     render(podcastList) {
       container.innerHTML = "";
       podcastList.forEach((p) => {
-        // Create the custom element
-        const card = document.createElement("podcast-preview");
-        card.id = p.id;
-        card.setAttribute("title", p.title);
-        card.setAttribute("image", p.image);
-        card.setAttribute("seasons", p.seasons);
-        card.setAttribute("updated", p.updated);
-        card.setAttribute("genres", p.genres.join(","));
-        
-        // Add event listener for the custom element
-        card.addEventListener('podcastSelected', (e) => {
-          createModal.open(p);
-        });
-        
+        const card = createPodcastCard(p, createModal.open);
         container.appendChild(card);
       });
     },
